@@ -17,10 +17,10 @@ members = get_response("GET", f"https://api.apparyllis.com/v1/members/{SYSTEM_ID
 data = members.json()
 
 #filtering members by empty fields
-filter = [] 
+filtered = [] 
 for entry in data:
     if entry['content'][':field']=="":
-        filter.append(entry['id'])
+        filtered.append(entry['id'])
 
 #grab groups and update
 groups = get_response("GET", f"https://api.apparyllis.com/v1/groups/{SYSTEM_ID}")
@@ -31,6 +31,6 @@ for entry in groups.json():
         del entry['content']['buckets']
         del entry['content']['lastOperationTime']
 
-        entry['content']['members'] = no_prns
+        entry['content']['members'] = filtered
         group_id = entry['id']
         get_response("PATCH", f"https://api.apparyllis.com/v1/group/{group_id}", entry['content'])
