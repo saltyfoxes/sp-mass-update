@@ -18,7 +18,7 @@ for entry in data:
 groups = get_response("GET", f"https://api.apparyllis.com/v1/groups/{SYSTEM_ID}")
 
 for entry in groups.json():
-    if entry['content']['name']=="":
+    if entry['content']['name']==":group name":
         del entry['content']['uid']
         del entry['content']['buckets']
         del entry['content']['lastOperationTime']
