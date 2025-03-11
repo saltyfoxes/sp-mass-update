@@ -1,19 +1,5 @@
-import requests
-
-from tokens import SYSTEM_ID, TOKEN
-
-def get_response(method, url, body = None):
-    response = requests.request(method, url, json=body, headers={"Authorization": TOKEN})
-    if not response.ok:
-        print(response.text)
-        response.raise_for_status()
-
-    return response
-
-#create json files
-def write_to_file(name, data):
-    with open(name, "wb") as file:
-         file.write(data)
+from tokens import SYSTEM_ID
+from helpers import get_response
 
 #grab members
 members = get_response("GET", f"https://api.apparyllis.com/v1/members/{SYSTEM_ID}")
