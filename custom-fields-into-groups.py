@@ -1,8 +1,6 @@
 import requests
 
-#if there is a colon (:) put your information there
-SYSTEM_ID = ":userID"
-TOKEN = ":readwritetoken"
+from tokens import SYSTEM_ID, TOKEN
 
 def get_response(method, url, body = None):
     response = requests.request(method, url, json=body, headers={"Authorization": TOKEN})
