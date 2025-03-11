@@ -12,17 +12,25 @@ def get_response(method, url, body = None):
 
     return response
 
+#create json files
+def write_to_file(name, data):
+    with open(name, "wb") as file:
+         file.write(data)
+
 #grab members
 members = get_response("GET", f"https://api.apparyllis.com/v1/members/{SYSTEM_ID}")
 data = members.json()
 
-#filtering members by empty fields
+#filtering members by empty custom fields
 filtered = [] 
 for entry in data:
-    if entry['content'][':field']=="":
-        filtered.append(entry['id'])
+    try:
+        if entry['content']['info'][':group id']!="":
+            filtered.append(entry['id'])
+    except: 
+        pass
 
-#grab groups and update
+#grab group and update with members
 groups = get_response("GET", f"https://api.apparyllis.com/v1/groups/{SYSTEM_ID}")
 
 for entry in groups.json():
